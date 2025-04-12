@@ -1,0 +1,14 @@
+schema_version = "1.0.0"
+
+id = "rptr_cactus"
+version = "0.0.1"
+name = "Cactus Export"
+tagline = "Export collections"
+maintainer = "rptr <dev.rptr@gmail.com>"
+type = "add-on"
+
+blender_version_min = "4.4.0"
+
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
