@@ -2,8 +2,7 @@
 
 Simple exporter which exports each collection as a separate glTF file.
 
-Unique feature(s):
-
+* Export collections
 * Center at collection origin
 
 ## Installation
