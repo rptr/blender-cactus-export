@@ -1,7 +1,13 @@
 import bpy
 from bpy.props import *
 
-class CactusSettings(bpy.types.PropertyGroup):
+
+class CactusExportSettings(bpy.types.PropertyGroup):
+    name: StringProperty(
+        name    = 'Name',
+        default = 'Untitled'
+    )
+
     directory: StringProperty(
         name    = 'Directory',
         subtype = 'DIR_PATH',
@@ -24,4 +30,25 @@ class CactusSettings(bpy.types.PropertyGroup):
     center_collections: BoolProperty(
         name    = 'Center collections',
         default = True
+    )
+
+    collections: CollectionProperty(
+        name    = 'Collections',
+        type    = bpy.types.PropertyGroup
+    )
+
+    export_type: EnumProperty(
+        name    = 'Export all collections',
+        items   = [
+            ('ALL COLLECTIONS', 'All collections', '', 1),
+            ('COLLECTIONS', 'Collections', '', 2),
+        ],
+        default = 'ALL COLLECTIONS'
+    )
+
+
+class CactusSettings(bpy.types.PropertyGroup):
+    configs: CollectionProperty(
+        name    = 'Configs',
+        type    = CactusExportSettings
     )

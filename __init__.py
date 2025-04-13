@@ -10,13 +10,14 @@ from bpy.props import *
 
 from . import operators, settings, ui
 
-ordered_classes = [operators.CactusExportAll, ui.CactusPanel, settings.CactusSettings]
+ordered_classes = [operators.CactusExportAll, ui.CactusPanel, ui.ConfigList, settings.CactusExportSettings, settings.CactusSettings]
 
 def register():
     for cls in ordered_classes:
         bpy.utils.register_class(cls)
         
     bpy.types.Scene.cactus_settings = PointerProperty(type=settings.CactusSettings)
+    bpy.types.Scene.cactus_config_settings = PointerProperty(type=settings.CactusExportSettings)
 
 def unregister():
     for cls in reversed(ordered_classes):
