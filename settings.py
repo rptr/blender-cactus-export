@@ -1,6 +1,11 @@
 import bpy
 from bpy.props import *
 
+def on_update_name(self, context):
+    print('update name')
+    print(self.name)
+    export_type = 'C'
+    self.name = f'[{export_type}] {self.prefix}*{self.suffix}.{self.format}'
 
 class CactusExportSettings(bpy.types.PropertyGroup):
     name: StringProperty(
@@ -18,8 +23,22 @@ class CactusExportSettings(bpy.types.PropertyGroup):
         name    = 'Format',
         items   = [
             ('glTF', 'glTF (.glb/.gltf)', '', 1),
+            ('FBX', 'FBX', '', 2),
         ],
-        default = 'glTF'
+        default = 'glTF',
+        update = on_update_name
+    )
+
+    prefix: StringProperty(
+        name    = 'Prefix',
+        default = '',
+        update = on_update_name
+    )
+
+    suffix: StringProperty(
+        name    = 'Suffix',
+        default = '',
+        update = on_update_name
     )
     
     apply_modifiers: BoolProperty(
@@ -51,4 +70,9 @@ class CactusSettings(bpy.types.PropertyGroup):
     configs: CollectionProperty(
         name    = 'Configs',
         type    = CactusExportSettings
+    )
+
+    config_index: IntProperty(
+        name    = 'Config index',
+        default = 0
     )

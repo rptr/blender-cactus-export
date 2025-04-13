@@ -1,5 +1,11 @@
 import bpy, os, mathutils
 
+
+class CactusExportSelected(bpy.types.Operator):
+    bl_idname = "cactus_export.export_selected"
+    bl_label = "Export Selected"
+
+
 class CactusExportAll(bpy.types.Operator):
     bl_idname = "cactus_export.export_all"
     bl_label = "Export All"
@@ -64,3 +70,24 @@ class CactusExportAll(bpy.types.Operator):
         
         for i in range(len(selected)):
             selected[i].location = locations[i] 
+
+
+class CactusConfigAdd(bpy.types.Operator):
+    bl_idname = "cactus_export.config_add"
+    bl_label = "Add Config"
+
+    def execute(self, context):
+        context.scene.cactus_settings.configs.add()
+        return {'FINISHED'}
+
+
+class CactusConfigRemove(bpy.types.Operator):
+    bl_idname = "cactus_export.config_remove"
+    bl_label = "Remove Config"
+
+    def execute(self, context):
+        index = context.scene.cactus_settings.config_index
+        context.scene.cactus_settings.configs.remove(index)
+        index -= 1
+        context.scene.cactus_settings.config_index = max(0, index)
+        return {'FINISHED'}

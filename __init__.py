@@ -10,7 +10,9 @@ from bpy.props import *
 
 from . import operators, settings, ui
 
-ordered_classes = [operators.CactusExportAll, ui.CactusPanel, ui.ConfigList, settings.CactusExportSettings, settings.CactusSettings]
+ordered_classes = [operators.CactusExportAll, operators.CactusConfigAdd, operators.CactusConfigRemove, operators.CactusExportSelected,
+                   ui.CactusPanel, ui.ConfigList, 
+                   settings.CactusExportSettings, settings.CactusSettings]
 
 def register():
     for cls in ordered_classes:

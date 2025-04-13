@@ -9,7 +9,7 @@ class CactusPanel(bpy.types.Panel):
     bl_label = 'Cactus Export'
     bl_space_type = 'VIEW_3D'
     bl_region_type = 'UI'
-    bl_category = 'Export'
+    bl_category = 'Cactus'
 
     def draw(self, context):
         layout = self.layout
@@ -20,6 +20,7 @@ class CactusPanel(bpy.types.Panel):
         # Export All button
         row = layout.row()
         row.operator("cactus_export.export_all", text="Export All")
+        row.operator("cactus_export.export_selected", text="Export Selected")
 
         layout.separator()
 
@@ -29,26 +30,29 @@ class CactusPanel(bpy.types.Panel):
         column.template_list(
             "ConfigList",
             "cactus_config_list",
-            scene.quick_exporter,
+            scene.cactus_settings,
             "configs",
-            scene.quick_exporter,
+            scene.cactus_settings,
             "config_index"
         )
 
         column = row.column()
-        column.operator("quick_exporter.add_item", text="", icon="ADD")
-        column.operator("quick_exporter.remove_item", text="", icon="REMOVE")
-        column.operator("quick_exporter.duplicate_item", text="", icon="DUPLICATE")
-        column.operator("quick_exporter.move_item", text="", icon="TRIA_UP").direction = 'UP'
-        column.operator("quick_exporter.move_item", text="", icon="TRIA_DOWN").direction = 'DOWN'
+        column.operator("cactus_export.config_add", text="", icon="ADD")
+        column.operator("cactus_export.config_remove", text="", icon="REMOVE")
 
-        # Define configs
-        row = layout.row()
-        row.operator('cactus_export.create_config', text='Add config')
-        
-        col = layout.column()
-        col.prop(config_settings, 'name')
-        col.prop(config_settings, 'directory')
-        col.prop(config_settings, 'format')
-        col.prop(config_settings, 'apply_modifiers')
-        col.prop(config_settings, 'center_collections')
+        # row = layout.row()
+        # row.operator('cactus_export.create_config', text='Add config')
+
+        config_index = scene.cactus_settings.config_index
+        configs = scene.cactus_settings.configs
+
+        if len(configs) > 0:
+            config = configs[config_index]
+
+            col = layout.column()
+            col.prop(config, 'directory')
+            col.prop(config, 'format')
+            col.prop(config, 'prefix')
+            col.prop(config, 'suffix')
+            col.prop(config, 'apply_modifiers')
+            col.prop(config, 'center_collections')
