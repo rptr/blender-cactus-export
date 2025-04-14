@@ -50,6 +50,13 @@ class CactusPanel(bpy.types.Panel):
             config = configs[config_index]
 
             col = layout.column()
+            col.prop(config, 'export_type')
+
+            if config.export_type == 'SELECTED_COLLECTIONS':
+                col.prop(config, 'selected_collections')
+            elif config.export_type == 'SELECTED_OBJECTS':
+                col.prop(config, 'selected_objects')
+
             col.prop(config, 'directory')
             col.prop(config, 'format')
             col.prop(config, 'prefix')

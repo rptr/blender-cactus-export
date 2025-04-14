@@ -51,8 +51,13 @@ class CactusExportSettings(bpy.types.PropertyGroup):
         default = True
     )
 
-    collections: CollectionProperty(
-        name    = 'Collections',
+    selected_collections: CollectionProperty(
+        name    = 'Selected collections',
+        type    = bpy.types.PropertyGroup
+    )
+
+    selected_objects: CollectionProperty(
+        name    = 'Selected objects',
         type    = bpy.types.PropertyGroup
     )
 
@@ -60,7 +65,9 @@ class CactusExportSettings(bpy.types.PropertyGroup):
         name    = 'Export all collections',
         items   = [
             ('ALL COLLECTIONS', 'All collections', '', 1),
-            ('COLLECTIONS', 'Collections', '', 2),
+            ('SELECTED COLLECTIONS', '(todo) Selected collections', '', 2),
+            ('ALL OBJECTS', 'All objects', '', 4),
+            ('SELECTED_OBJECTS', '(todo) Selected objects', '', 8),
         ],
         default = 'ALL COLLECTIONS'
     )
